@@ -1,13 +1,14 @@
 from typing import Annotated
 
+from fastapi import APIRouter, Body, Depends, HTTPException
 from passlib.context import CryptContext
-from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
-from fastapi import APIRouter, Depends, HTTPException, Path, Body
-from ..models import Todo, Users
-from ..database import engine, SessionLocal
 from starlette import status
+
+from ..database import SessionLocal
+from ..models import Users
 from .auth import get_current_user
+
 router = APIRouter(    prefix="/Users",
     tags=["USERAPIS"],)
 
@@ -30,7 +31,7 @@ async def get_user(db:db_dependency, user:user_dependency):
     return db.query(Users).filter(Users.id == user.get("user_id")).first()
 
 @router.put("/update_current_user_password/", status_code=status.HTTP_204_NO_CONTENT)
-async def get_user(db:db_dependency, user:user_dependency,
+async def update_current_user_password(db:db_dependency, user:user_dependency,
                    password: str= Body(...),
                    new_password:str= Body(...)):
     if user is None:
@@ -47,7 +48,7 @@ async def get_user(db:db_dependency, user:user_dependency,
     db.commit()
 
 @router.put("/update_phone_number/", status_code=status.HTTP_204_NO_CONTENT)
-async def get_user(db:db_dependency, user:user_dependency, new_phone_number:str= Body(..., embed=True)):
+async def update_phone_number(db:db_dependency, user:user_dependency, new_phone_number:str= Body(..., embed=True)):
     if user is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="User not found")
 

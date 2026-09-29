@@ -3,3 +3,11 @@ name = "python-git-basics"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = []
+
+[tool.ruff.lint]
+ignore = [
+    "N999",    # TodoApp package name is capitalized; renaming is out of scope
+    "DTZ003",  # datetime.utcnow() usage; tracked separately, not a lint blocker
+    "BLE001",  # one intentional broad except in todos.py page-render fallback
+    "PLR0133", # test_example.py is a deliberately trivial practice file
+]

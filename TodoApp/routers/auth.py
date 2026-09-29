@@ -1,17 +1,17 @@
-from datetime import timedelta, datetime
+from datetime import datetime, timedelta
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi.templating import Jinja2Templates
-from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
+from jose import JWTError, jwt
+from passlib.context import CryptContext
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from starlette import status
-from jose import jwt, JWTError
 
 from ..database import SessionLocal
 from ..models import Users
-from passlib.context import CryptContext
 
 router = APIRouter(
     prefix="/auth",
@@ -57,7 +57,7 @@ def render_login_page(request: Request):
     context={"request": request})
 
 @router.get("/register-page")
-def render_login_page(request: Request):
+def render_register_page(request: Request):
     return templates.TemplateResponse(request=request,
     name="register.html",
     context={"request": request})

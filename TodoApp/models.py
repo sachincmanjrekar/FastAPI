@@ -1,7 +1,6 @@
-from xmlrpc.client import Boolean
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 
 from .database import Base
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 
 
 class Users(Base):

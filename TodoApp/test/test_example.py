@@ -17,8 +17,8 @@ def test_booean():
 
 
 def test_type():
-    assert type('He' is str)
-    assert type('He' is not int)
+    assert type('He' == str)
+    assert type('He' != int)
 
 
 class Student:

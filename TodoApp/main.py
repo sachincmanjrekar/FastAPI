@@ -1,10 +1,12 @@
 
 from fastapi import FastAPI, Request
-from .models import Base
-from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+
 from .database import engine
-from .routers import auth, todos, admin, users
+from .models import Base
+from .routers import admin, auth, todos, users
+
 app = FastAPI()
 
 Base.metadata.create_all(bind=engine)
