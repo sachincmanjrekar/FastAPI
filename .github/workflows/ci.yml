@@ -29,3 +29,7 @@ jobs:
 
       - name: Run tests
         run: python -m pytest TodoApp/test -v
+
+      - name: Deploy to Render
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: curl -fsS -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
